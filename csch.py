@@ -10,11 +10,16 @@ import codecs
 from progressbar import ProgressBar
 import time
 
-# オプションファイル名
-saved_option_path = os.path.normpath(
-    "%s/data/options.pkl" % os.path.dirname(__file__))
 
 # オプションファイルがないなら作成
+
+saved_option_dir = os.path.normpath(
+    "%s/data" % os.path.dirname(__file__))
+if not os.path.exists(saved_option_dir):
+    os.mkdir(saved_option_dir)
+
+saved_option_path = os.path.normpath(
+    "%s/data/options.pkl" % os.path.dirname(__file__))
 if not os.path.exists(saved_option_path):
     with open(saved_option_path, "wb") as f_op:
         pickle.dump({}, f_op)
