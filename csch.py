@@ -15,11 +15,12 @@ import time
 
 saved_option_dir = os.path.normpath(
     "%s/data" % os.path.dirname(__file__))
+
 if not os.path.exists(saved_option_dir):
     os.mkdir(saved_option_dir)
 
 saved_option_path = os.path.normpath(
-    "%s/data/options.pkl" % os.path.dirname(__file__))
+    "%s/options.pkl" % saved_option_dir)
 if not os.path.exists(saved_option_path):
     with open(saved_option_path, "wb") as f_op:
         pickle.dump({}, f_op)
@@ -67,11 +68,11 @@ if args.list:
         saved_options = pickle.load(f_op)
         print("-----------------------------------------")
         for key, options in saved_options.items():
-            print("%s:" % key)
+            print("[ %s ]" % key)
             # for op_key, op in vars(options).items():
             options = vars(options)
-            for op_key in ['encoding', 'target', 'ignore_linehead_to', 'show_only_filename']:
-                print("    %s: %s" % (op_key, options[op_key]))
+            for op_key in ['query', 'encoding', 'target', 'ignore_linehead_to', 'show_only_filename']:
+                print("    %20s: %s" % (op_key, options[op_key]))
         print("-----------------------------------------")
     sys.exit(0)
 
