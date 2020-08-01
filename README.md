@@ -2,6 +2,8 @@
 
 検索ディレクトリパターンなどのオプションを保存しながらファイル検索できる。
 
+![demo](https://github.com/AtsukiImamura/lazy-file-searcher/blob/image/image/demo.png)
+
 ## オプション
 
 | オプション | 解説                                                                                                                                                                                                                                    |
