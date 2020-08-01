@@ -69,7 +69,7 @@ if args.S:  # 保存されたオプションを使う場合
         if args.S not in saved_options:
             raise Exception("save key is not found in saved options.")
         options = saved_options[args.S]
-        options.query = saved_options.query if not args.query else args.query
+        options.query = options.query if not args.query else args.query
 else:  # 新たにオプションを指定する場合
     if not args.query:
         raise Exception(
