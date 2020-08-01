@@ -10,6 +10,15 @@ import codecs
 from progressbar import ProgressBar
 import time
 
+# オプションファイル名
+saved_option_path = os.path.normpath(
+    "%s/data/options.pkl" % os.path.dirname(__file__))
+
+# オプションファイルがないなら作成
+if not os.path.exists(saved_option_path):
+    with open(saved_option_path, "wb") as f_op:
+        pickle.dump({}, f_op)
+
 parser = argparse.ArgumentParser()
 
 # == search options ==
@@ -49,7 +58,7 @@ parser.add_argument("--list", action="store_true",
 args = parser.parse_args()
 
 if args.list:
-    with open('options.pkl', 'rb') as f_op:
+    with open(saved_option_path, 'rb') as f_op:
         saved_options = pickle.load(f_op)
         print("-----------------------------------------")
         for key, options in saved_options.items():
@@ -64,7 +73,7 @@ if args.list:
 # 使用オプションの確定
 options = {}
 if args.S:  # 保存されたオプションを使う場合
-    with open('options.pkl', 'rb') as f_op:
+    with open(saved_option_path, 'rb') as f_op:
         saved_options = pickle.load(f_op)
         if args.S not in saved_options:
             raise Exception("save key is not found in saved options.")
@@ -146,12 +155,9 @@ progress_bar.finish()
 # オプションの保存
 if options.save:
     saved_options = None
-    if os.path.exists("options.pkl"):
-        with open('options.pkl', 'rb') as f_op:
-            saved_options = pickle.load(f_op)
-    if not saved_options:
-        saved_options = {}
-    with open("options.pkl", "wb") as f_op:
+    with open(saved_option_path, 'rb') as f_op:
+        saved_options = pickle.load(f_op)
+    with open(saved_option_path, "wb") as f_op:
         save_key = options.save
         options.save = None
         saved_options[save_key] = options

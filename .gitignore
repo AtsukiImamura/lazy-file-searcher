@@ -1,2 +1,8 @@
 test/
 dist/
+build/
+data/
+__pycache__/
+*.spec
+
+options.pkl
